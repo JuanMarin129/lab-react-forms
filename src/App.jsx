@@ -19,42 +19,68 @@ function App() {
   const [ageGraduacionEstudiante, setAgeGraduacionEstudiante ] = useState(2023);
   const [estudianteGraduado, setEstudianteGraduado] = useState(false);
 
+
+  // FUNCIONES DE CONTROL DE ESTADOS
   const introducirNombreEstudiante = (evento) => {
-    //console.log("Dentro del Nombre Estudiante")
     setNombreCompletoEstudiantes(evento.target.value)
-    console.log(evento.target.value);
+   
   }
   const introducirImagenEstudiante = (evento) => {
-    //console.log("Dentro de la Imagen Estudiante")
     setImagenEstudiante(evento.target.value)
-    console.log(evento.target.value);
   }
   const introducirTelefonoEstudiante = (evento) => {
-    //console.log("Dentro del Telefono Estudiante")
     setTelefonoEstudiante(evento.target.value)
-    console.log(evento.target.value);
   }
   const introducirEmailEstudiante = (evento) => {
-    //console.log("Dentro del Email Estudiante")
     setEmailEstudiante(evento.target.value)
-    console.log(evento.target.value);
   }
   const introducirProgramaEstudiante = (evento) => {
-    //console.log("Dentro del Programa Estudiante")
     setProgramaEstudiante(evento.target.value)
-    console.log(evento.target.value);
   }
   const introducirAnyoGraduacionEstudiante = (evento) => {
-    //console.log("Dentro del Año Graduación Estudiante")
     setAgeGraduacionEstudiante(evento.target.value)
-    console.log(evento.target.value);
   }
   const introducirEstudianteGraduado = (evento) => {
-    //console.log("Dentro del Checked si está Graduado o no")
     setEstudianteGraduado(evento.target.checked)
-    console.log(evento.target.checked);
   }
 
+
+  // ENVÍO FORMULARIO
+
+  const enviarFormulario = (evento) => {
+    evento.preventDefault();
+    console.log("Entregando Formulario...")
+
+
+    // Creamos al nuevo estudiante con los valores del formulario
+    const nuevoEstudiante = {
+        fullName: nombreCompletoEstudiantes,
+        email: emailEstudiante,
+        phone: telefonoEstudiante,
+        program: programaEstudiante,
+        image: imagenEstudiante,
+        graduationYear: ageGraduacionEstudiante,
+        graduated: estudianteGraduado
+        
+    }
+
+    // Actualizmaos la data con el nuevo estudiante
+    const clone = [...students];
+    clone.push(nuevoEstudiante)
+    console.log(clone)
+    setStudents(clone);
+
+    // Reiniciamos los campos del Formulario
+    setNombreCompletoEstudiantes("")
+    setImagenEstudiante("")
+    setTelefonoEstudiante("")
+    setEmailEstudiante("")
+    setProgramaEstudiante("")
+    setAgeGraduacionEstudiante(2023)
+    setEstudianteGraduado(false)
+
+
+  }
 
 
   return (
@@ -62,7 +88,7 @@ function App() {
       <Navbar />
 
       {/* FORM */}
-      <form>
+      <form onSubmit={enviarFormulario}>
         <span>Add a Student</span>
         <div>
           <label>
